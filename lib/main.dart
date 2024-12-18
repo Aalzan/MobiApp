@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:travel_app/screens/splash_screen.dart';
+import 'screens/homepage.dart'; // Импорт HomePage
+import 'screens/splash_screen.dart'; // Импорт SplashScreen
 
 void main() {
   runApp(const MyApp());
@@ -8,12 +9,11 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false, // Убираем баннер "Debug"
+      home: const SplashScreen(), // Устанавливаем SplashScreen как стартовую страницу
     );
   }
 }

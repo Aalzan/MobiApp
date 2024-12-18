@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:travel_app/screens/splash_screen.dart';
-import 'package:qr_flutter/qr_flutter.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 
 void main() {
   runApp(MyApp());
@@ -27,27 +25,37 @@ class _HomePageState extends State<HomePage> {
   // Список товаров
   final List<Map<String, String>> products = [
     {
-      "image": "assets/a1.png",
+      "image": "assets/2.png",
       "name": "Regular",
       "color": "A simple cactus will brighten up your space",
-      "price": "\◊ 0,0027"
+      "price": "\◊ 0,0005"
     },
     {
-      "image": "assets/a2.png",
+      "image": "assets/1.png",
       "name": "Gentelman",
       "color": "A elegant cactus that will brighten up your day",
-      "price": "\◊ 0,0027"
+      "price": "\◊ 0,0005"
     },
     {
-      "image": "assets/a3.png",
+      "image": "assets/3.png",
       "name": "Knight",
-      "color": "A bold and vibrant design that show user valor",
-      "price": "\◊ 0,0027"
+      "color": "A bold and vibrant design that shows user valor",
+      "price": "\◊ 0,0005"
     },
   ];
 
   // Переменные для выбранного продукта
   int selectedIndex = 0;
+
+  // Функция для открытия URL на OpenSea
+  void _launchOpenSea() async {
+    const url = 'https://opensea.io/assets/ethereum/0x3dbf429288b5e65fb5bcd8bc35fcfb24e9bba91a/2';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -118,12 +126,7 @@ class _HomePageState extends State<HomePage> {
                 bottom: 20,
                 right: 20,
                 child: FloatingActionButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => SplashScreen()),
-                    );
-                  },
+                  onPressed: _launchOpenSea, // Открывает ссылку на OpenSea
                   backgroundColor: Color(0xFF669966),
                   child: Icon(
                     Icons.shopping_bag_outlined,
@@ -133,7 +136,6 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           ),
-
           // Список продуктов
           Expanded(
             child: ListView.builder(
@@ -257,17 +259,6 @@ class ProductCard extends StatelessWidget {
             ],
           ),
         ],
-      ),
-    );
-  }
-}
-
-class SplashScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Text('Splash Screen'),
       ),
     );
   }
